@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+export DROPBOX="$HOME/Dropbox"
+export ORG="$DROPBOX/Notes/org"
+export PROJECTS="$DROPBOX/Projects"
+export WALLPAPERDIR="$HOME/.wallpapers"
+
+# Applications
+export BROWSER="firefox"
+export EDITOR="vim"
+
+# PATH
+export PATH="${PATH}:${HOME}/bin:${HOME}/.local/bin/:${HOME}/.shell/scripts"

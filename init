@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+source $HOME/.shell/env
+
+# Custom functions
+# setxkbmap -option 'caps:escape'
+
+# Aliases
+# Git for dotfiles
+alias dots='/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME'
+
+# Start fish
+# if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]]
+# then
+	# exec fish
+# fi
