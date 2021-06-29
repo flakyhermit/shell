@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 root=https://api.unsplash.com/
-endpoint="/photos/random?query=nature&orientation=landscape"
+endpoint="/photos/random?query=$1&orientation=landscape"
 
 CURL=/usr/bin/curl
 JQ=/usr/bin/jq
