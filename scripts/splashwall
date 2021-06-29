@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+root=https://api.unsplash.com/
+endpoint="/photos/random?query=nature&orientation=landscape"
+
+CURL=/usr/bin/curl
+JQ=/usr/bin/jq
+
+photo_url=$($CURL --silent -H "Authorization: Client-ID GFlIV8NlRMY0zDOmC9haJL4i2kalIzH3Kssx_cAqaeQ" $root$endpoint | $JQ '.urls.full')
+photo_url=$(sed -e 's/^"//' -e 's/"$//' <<<"$photo_url") # Remove opening and closing quotes
+
+OPDIR=$HOME/.wallpapers
+op=$OPDIR/$(date +%s).jpeg
+rm $OPDIR/*.jpeg # Remove previously downloaded wallpaper
+$CURL $photo_url --output $op >> /dev/null
+
+# Setting wallpaper with dbus
+qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript 'var allDesktops = desktops();
+
+print (allDesktops);for (i=0;i<allDesktops.length;i++) {
+d = allDesktops[i];d.wallpaperPlugin = "org.kde.image";
+d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
+d.writeConfig("Image", "'file://${op}'")}'
+    
+

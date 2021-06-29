@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BACKUP_DIR=$HOME/.local/backups
+DROPBOX=$HOME/Dropbox
+DROPBOX_BACKUP_DIR=$DROPBOX/Backups
+
+rs=$(which rsync)
+options="-ahv"
+timestamp=$(date +%Y%m%d%H%M%S)
+
+$rs $options $DROPBOX/Notes $DROPBOX_BACKUP_DIR/Notes/$timestamp
