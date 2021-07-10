@@ -6,7 +6,17 @@ endpoint="/photos/random?query=$1&orientation=landscape"
 CURL=/usr/bin/curl
 JQ=/usr/bin/jq
 
-photo_url=$($CURL --silent -H "Authorization: Client-ID GFlIV8NlRMY0zDOmC9haJL4i2kalIzH3Kssx_cAqaeQ" $root$endpoint | $JQ '.urls.full')
+$CURL --silent -H "Authorization: Client-ID GFlIV8NlRMY0zDOmC9haJL4i2kalIzH3Kssx_cAqaeQ" $root$endpoint > .results.json
+var=$?
+if [ "$var" == "0" ]; then
+  echo ""
+else
+  echo "Can't reach Unsplash servers. Check your network connection."
+  exit
+fi
+
+photo_url=$($JQ '.urls.full' .results.json)
+# echo $photo_url
 photo_url=$(sed -e 's/^"//' -e 's/"$//' <<<"$photo_url") # Remove opening and closing quotes
 
 OPDIR=$HOME/.wallpapers
